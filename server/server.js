@@ -19,11 +19,7 @@ console.log("Allowed Origins:", allowedOrigins);
 
 app.use(
   cors({
-    origin: (origin, cb) => {
-
-      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
-      cb(new Error(`CORS policy blocked origin: ${origin}`));
-    },
+    origin: true,
     credentials: true,
   })
 );
