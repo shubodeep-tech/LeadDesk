@@ -22,9 +22,15 @@ console.log("allowedOrigins =", allowedOrigins);
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        origin === "http://localhost:5173" ||
+        origin === "https://lead-desk-seven.vercel.app" ||
+        origin.endsWith(".vercel.app")
+      ) {
         return callback(null, true);
       }
+
       return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
