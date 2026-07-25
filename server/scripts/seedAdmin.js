@@ -34,12 +34,12 @@ const Admin    = require('../models/Admin');
       passwordHash: ADMIN_PASSWORD, // pre-save hook hashes it
     });
 
-    console.log(`✅ Admin created successfully!`);
+    console.log(`Admin created successfully!`);
     console.log(`   Email:    ${ADMIN_EMAIL}`);
     console.log(`   Password: ${ADMIN_PASSWORD}`);
-    console.log(`\n⚠️  Remember to change the password after first login!`);
+    console.log(`\n  Remember to change the password after first login!`);
   } catch (err) {
-    console.error('❌ Seed failed:', err.message);
+    console.error(' Seed failed:', err.message);
   } finally {
     await mongoose.disconnect();
     process.exit(0);

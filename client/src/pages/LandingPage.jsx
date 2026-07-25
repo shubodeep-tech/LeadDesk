@@ -25,6 +25,34 @@ function validate(fields) {
   return errs;
 }
 
+// ── Field: moved out of LandingPage so it isn't redefined (and remounted)
+//    on every render, which was causing inputs to lose focus while typing.
+function Field({ id, label, error, children, charCount }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-center justify-between">
+        <label htmlFor={id} className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
+          {label}
+        </label>
+        {charCount !== undefined && (
+          <span className={`text-xs ${charCount > 1800 ? 'text-rose-400' : 'text-slate-600'}`}>
+            {charCount} / 2000
+          </span>
+        )}
+      </div>
+      {children}
+      {error && (
+        <p className="text-xs text-rose-400 font-medium animate-fade-in flex items-center gap-1">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function LandingPage() {
   const [form,    setForm]    = useState(INITIAL);
   const [errors,  setErrors]  = useState({});
@@ -81,30 +109,6 @@ export default function LandingPage() {
       setLoading(false);
     }
   };
-
-  const Field = ({ id, label, error, children, charCount }) => (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-center justify-between">
-        <label htmlFor={id} className="text-xs font-semibold text-slate-400 tracking-wide uppercase">
-          {label}
-        </label>
-        {charCount !== undefined && (
-          <span className={`text-xs ${charCount > 1800 ? 'text-rose-400' : 'text-slate-600'}`}>
-            {charCount} / 2000
-          </span>
-        )}
-      </div>
-      {children}
-      {error && (
-        <p className="text-xs text-rose-400 font-medium animate-fade-in flex items-center gap-1">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          {error}
-        </p>
-      )}
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-[#080b14] relative overflow-x-hidden">
