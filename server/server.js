@@ -9,15 +9,18 @@ const leadsRoutes = require('./routes/leads');
 const app  = express();
 const PORT = process.env.PORT || 5000;
 
-// ─── Allowed origins ──────────────────────────────────────────────────────────
+
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
   .split(',')
   .map((o) => o.trim());
 
+  console.log("CLIENT_URL:", process.env.CLIENT_URL);
+console.log("Allowed Origins:", allowedOrigins);
+
 app.use(
   cors({
     origin: (origin, cb) => {
-      // Allow requests with no origin (e.g. curl, Render health checks)
+
       if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
       cb(new Error(`CORS policy blocked origin: ${origin}`));
     },
