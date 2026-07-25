@@ -2,6 +2,8 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../lib/api';
+import { CheckCircle2 } from "lucide-react";
+
 
 const BUDGET_RANGES =[
   "Under 5,000",
@@ -230,12 +232,17 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-2">Message Sent! 🎉</h3>
+                  <h3 className="flex items-center justify-center gap-2 text-2xl font-bold mb-2">
+                  <CheckCircle2 className="w-7 h-7 text-green-500" />
+               Message Sent Successfully!
+              </h3>
+
                   <p className="text-slate-400 text-sm">We'll be in touch within 24 hours.</p>
                 </div>
                 <button onClick={() => setSuccess(false)} className="btn-ghost text-sm">Send another message</button>
               </div>
             ) : (
+
               <>
                 <div className="mb-7">
                   <h3 className="text-xl font-bold">Send us a message</h3>

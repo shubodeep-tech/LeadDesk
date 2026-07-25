@@ -10,16 +10,20 @@ const app  = express();
 const PORT = process.env.PORT || 5000;
 
 
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
-  .split(',')
+const allowedOrigins = (
+  process.env.CLIENT_URL || "http://localhost:5173"
+)
+  .split(",")
   .map((o) => o.trim());
-
-  console.log("CLIENT_URL:", process.env.CLIENT_URL);
-console.log("Allowed Origins:", allowedOrigins);
 
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
